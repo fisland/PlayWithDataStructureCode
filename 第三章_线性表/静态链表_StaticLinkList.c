@@ -17,7 +17,7 @@ typedef int Status; /* Status是函数的类型,其值是函数结果状态代�
 typedef int ElemType; /* 类型根据实际情况来定，这里是int */
 
 Status visit(ElemType c){
-    printf("%d ",c);
+    printf("%c ",c);
     return OK;
 }
 
@@ -61,7 +61,7 @@ void Free_SSL(StaticLinkList space, int k){
 int ListLength(StaticLinkList L){
     int j = 0;
     int i = L[MAXSIZE-1].cur;
-    while(1){
+    while(i){
         i = L[i].cur;
         j++;
     }
@@ -77,7 +77,7 @@ Status ListInsert(StaticLinkList L,int i,ElemType e){
     j = Malloc_SLL(L); /* 获得空闲分量的下标 */
     if(j){
         L[j].data = e;/* 将数据赋值给此分量的data */
-        for(l=1;l<=i;l++){/* 找到第i个元素之前的位置 */
+        for(l=1;l<=i-1;l++){/* 找到第i个元素之前的位置 */
             k = L[k].cur;
         }
         L[j].cur = L[k].cur; /* 把第i个元素之前的cur赋值给新元素的cur */
@@ -125,6 +125,24 @@ int main()
     i=InitList(L);
     printf("初始化L后：L.length=%d\n",ListLength(L));
 
+    i=ListInsert(L,1,'F');
+    i=ListInsert(L,1,'E');
+    i=ListInsert(L,1,'D');
+    i=ListInsert(L,1,'B');
+    i=ListInsert(L,1,'A');
+
+    printf("\n在L的表头依次插入FEDBA后：\nL.data=");
+    ListTraverse(L); 
+
+    i=ListInsert(L,3,'C');
+    printf("\n在L的“B”与“D”之间插入“C”后：\nL.data=");
+    ListTraverse(L); 
+
+    i=ListDelete(L,1);
+    printf("\n在L的删除“A”后：\nL.data=");
+    ListTraverse(L); 
+
+    printf("\n");
 
     return 0;
 }
