@@ -130,6 +130,8 @@ int main()
     i=ListInsert(L,1,'D');
     i=ListInsert(L,1,'B');
     i=ListInsert(L,1,'A');
+    
+    printf("L.length=%d\n",ListLength(L));
 
     printf("\n在L的表头依次插入FEDBA后：\nL.data=");
     ListTraverse(L); 
