@@ -32,11 +32,12 @@ typedef struct{
 /* space[0].cur为头指针，"0"表示空指针 */
 Status InitList(StaticLinkList space){
     int i;
-    for(i=0;i<MAXSIZE-1;i++){
+    for(i=0; i<MAXSIZE-1; i++){
         space[i].cur = i+1;
         /* 目前静态链表为空，最后一个元素的cur为0 */
-        space[MAXSIZE-1].cur = 0;
     }
+    space[MAXSIZE-1].cur = 0;
+    return OK;
 }
 
 // 若备用空间链表非空，则返回分配的结点下标，否则返回0
@@ -102,4 +103,28 @@ Status ListDelete(StaticLinkList L, int i){
     L[k].cur = L[j].cur;
     Free_SSL(L,j);
     return OK;
+}
+
+Status ListTraverse(StaticLinkList L){
+    int i = 0;
+    int j = L[MAXSIZE-1].cur;
+    while(i){
+        visit(L[i].data);
+        i = L[i].cur;
+        j++;
+    }
+    return j;
+    printf("\n");
+    return OK;
+}
+
+int main()
+{
+    StaticLinkList L;
+    Status i;
+    i=InitList(L);
+    printf("初始化L后：L.length=%d\n",ListLength(L));
+
+
+    return 0;
 }
