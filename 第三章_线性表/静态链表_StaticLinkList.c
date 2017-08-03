@@ -14,7 +14,7 @@
 #define MAXSIZE 20 //存储空间初始分配量
 
 typedef int Status; /* Status是函数的类型,其值是函数结果状态代码，如OK等 */
-typedef int ElemType; /* 类型根据实际情况来定，这里是int */
+typedef char ElemType; /* 类型根据实际情况来定，这里是char */
 
 Status visit(ElemType c){
     printf("%c ",c);
@@ -130,7 +130,7 @@ int main()
     i=ListInsert(L,1,'D');
     i=ListInsert(L,1,'B');
     i=ListInsert(L,1,'A');
-    
+
     printf("L.length=%d\n",ListLength(L));
 
     printf("\n在L的表头依次插入FEDBA后：\nL.data=");
