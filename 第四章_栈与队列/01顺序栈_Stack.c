@@ -31,7 +31,7 @@ Status visit(SElemType c)
 
 // 初始化操作，建立一个空栈
 Status InitStack(SqStack *S){
-
+    S->top = -1;
     return OK;
 }
 
@@ -43,24 +43,30 @@ Status DestoryStack(SqStack *S){
 
 // 将栈清空
 Status ClearStack(SqStack *S){
+    S->top = -1;
     return OK;
 }
 
 // 是否为空
 int StackEmpty(SqStack S){
-
-    return True;
+    if (S.top == -1)
+        return True;
+    else
+        return FALSE;
 }
 
 // 若栈非空。用e返回s的栈顶元素
 int GetTop(SqStack S, SElemType *e){
-
-    return *e;
+    if (S.top == -1)
+        return ERROR;
+    else
+        *e = S.data[S.top];
+    return OK;
 }
 
 // 若栈存在，插入新元素e到栈s中并成为栈顶元素
 Status Push(SqStack *S, SElemType e){
-    if (S->top == MAXSIZE-1){
+    if (S->top == MAXSIZE-1){//栈满
         return ERROR;
     }
     // 栈顶指针加1
@@ -84,8 +90,35 @@ Status Pop(SqStack *S,SElemType *e){
 
 // 返回栈s的元素个数SElemType
 int StackLength(SqStack S){
-    return 0;
+    return S.top + 1;
 }
 
+// 从栈底到栈顶以此对栈中每个元素显示
+Status StackTraverse(SqStack S){
+    int i;
+    i = 0;
+    while(i<=S.top){
+        visit(S.data[i++]);
+    }
+    printf("\n");
+    return OK;
+}
 
+int main(){
+    int j;
+    SqStack s;
+    int e;
+    if(InitStack(&s)==OK)
+        for(j=1;j<=10;j++)
+            Push(&s,j);
+    printf("栈中元素依次为：");
+    StackTraverse(s);
+    Pop(&s,&e);
+    printf("弹出的栈顶元素e=%d\n",e);
+    printf("栈空否%d(1:空 0:否)\n",StackEmpty(s));
+    GetTop(s,&e);
+    printf("栈顶元素e=%d 栈的长度为%d\n",e,StackLength(s));
+    ClearStack(&s);
+    printf("清空后，栈空否%d(1:空 0:否)\n",StackEmpty(s));
+}
 
